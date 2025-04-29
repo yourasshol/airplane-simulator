@@ -18,7 +18,7 @@ body {
     transform: translateX(-50%); /* Center the airplane */
     width: 50px;
     height: 50px;
-    background: url('https://example.com/airplane.png') no-repeat center center; /* Replace with an actual airplane image URL */
+    background: url('https://img.icons8.com/ios-filled/50/000000/airplane.png') no-repeat center center;
     background-size: cover;
 }
 
@@ -28,5 +28,5 @@ body {
     height: 50px;
     background: red;
     top: 0;
-    left: 100vw; /* Start off screen */
+    left: 100%; /* Start completely to the right */
 }
