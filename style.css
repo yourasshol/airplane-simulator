@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: skyblue;
+}
+
+#game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid #333;
+}
+
+#airplane {
+    position: absolute;
+    bottom: 20px; /* Starting position */
+    left: 50%; /* Centered */
+    width: 50px;
+    height: 50px;
+    background: url('https://example.com/airplane.png') no-repeat center center; /* Replace with an actual airplane image URL */
+    background-size: cover;
+}
+
+#obstacle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: red;
+    top: 0;
+    left: calc(100vw + 50px); /* Start off screen */
+}
