@@ -3,6 +3,7 @@ const obstacle = document.getElementById('obstacle');
 const gameArea = document.getElementById('game');
 let score = 0;
 let isGameOver = false;
+let obstacleSpeed = 5; // Speed of the obstacle
 
 // Move airplane based on key press
 document.addEventListener('keydown', (event) => {
@@ -36,28 +37,30 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Obstacle behavior
-function startObstacle() {
-    obstacle.style.left = '100vw'; // start off screen
-    const randomY = Math.floor(Math.random() * (gameArea.clientHeight - 50));
-    obstacle.style.top = randomY + 'px';
-    let obstacleSpeed = 5; // pixels per frame
+// Function to generate a new obstacle
+function generateObstacle() {
+    const obstacleY = Math.random() * (gameArea.clientHeight - 50);
+    obstacle.style.top = `${obstacleY}px`;
+    obstacle.style.left = `100vw`; // Start off screen on the right
+}
 
+// Move the obstacle
+function moveObstacle() {
     const obstacleInterval = setInterval(() => {
         if (isGameOver) {
             clearInterval(obstacleInterval);
             return;
         }
-        
-        // Move obstacle
-        const obstacleLeft = parseInt(obstacle.style.left);
+
+        const obstacleLeft = parseInt(window.getComputedStyle(obstacle).left);
         obstacle.style.left = (obstacleLeft - obstacleSpeed) + 'px';
 
         // Reset position if it goes off screen
         if (obstacleLeft < -50) {
-            score++; // Increment score
+            score++; 
             obstacleSpeed += 0.5; // Increase speed as score increases
-            startObstacle(); // Start a new obstacle
+            generateObstacle(); // Generate new obstacle
+            resetObstaclePosition(); // Move the obstacle back to the right
         }
 
         // Check for collision
@@ -67,6 +70,12 @@ function startObstacle() {
             isGameOver = true;
         }
     }, 100);
+}
+
+// Reset the position of the obstacle
+function resetObstaclePosition() {
+    obstacle.style.left = '100vw'; // Move off screen to reset
+    generateObstacle(); // Generate new obstacle randomly
 }
 
 // Collision detection
@@ -82,5 +91,6 @@ function isCollision(airplane, obstacle) {
     );
 }
 
-// Start the obstacle movement
-startObstacle();
+// Start the game
+generateObstacle(); // Generate the first obstacle
+moveObstacle(); // Start moving the obstacle
